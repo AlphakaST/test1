@@ -1,14 +1,14 @@
 import streamlit as st
 import pandas as pd
 import mysql.connector
-from openai import OpenAI
+from openai
 
 st.title("학생 답안 제출 양식")
 st.header("6문제의 서술형 답안을 제출하세요")
 
 # OpenAI API 키 설정
 api_key = st.secrets["openai"]["api_key"]
-client = OpenAI(api_key=api_key)
+client = api_key
 
 # MySQL 연결 설정
 db_config = {
