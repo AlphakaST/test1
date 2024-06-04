@@ -1,0 +1,9 @@
+streamlit
+openai
+pandas
+st-gsheets-connection
+mysqlclient
+sqlalchemy
+pymysql
+plotly
+reportlab
