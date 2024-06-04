@@ -63,7 +63,7 @@ with st.form(key="Feedback_form"):
                       f"내용 설명은 최대 200자 이내로 요약하여 제한하고, 설명할 때 교사가 학생에게 대하듯 친절하게 설명해 주세요.")
 
             response = client.chat.completions.create(
-                model="gpt-3.5-turbo",
+                model="gpt-4o",
                 messages=[
                     {"role": "system", "content": "You are a helpful assistant that provides feedback based on given criteria."},
                     {"role": "user", "content": prompt}
