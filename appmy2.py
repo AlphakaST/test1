@@ -1,14 +1,13 @@
 import streamlit as st
 import pandas as pd
 import mysql.connector
-from openai
+from openai import OpenAI
 
 st.title("학생 답안 제출 양식")
 st.header("6문제의 서술형 답안을 제출하세요")
 
 # OpenAI API 키 설정
-api_key = st.secrets["openai"]["api_key"]
-client = api_key
+client = OpenAI(api_key=st.secrets["openai"]["api_key"])
 
 # MySQL 연결 설정
 db_config = {
@@ -63,15 +62,16 @@ with st.form(key="Feedback_form"):
                       f"학생 답안이 예시 답안과 정확히 일치하지 않더라도, 내용이 맞다면 간단히 이유를 설명해 주세요."
                       f"내용 설명은 최대 200자 이내로 요약하여 제한하고, 설명할 때 교사가 학생에게 대하듯 친절하게 설명해 주세요.")
 
-            completion = client.chat.completions.create(
-                model="gpt-4o",
+            response = client.chat.completions.create(
+                model="gpt-3.5-turbo",
                 messages=[
                     {"role": "system", "content": "You are a helpful assistant that provides feedback based on given criteria."},
                     {"role": "user", "content": prompt}
                 ],
-                temperature=0.1
+                temperature=0.1,
+                max_tokens=200
             )
-            feedback = completion.choices[0].message.content.strip()
+            feedback = response.choices[0].message.content.strip()
             feedbacks.append(feedback)
 
         feedback_data = pd.DataFrame(
